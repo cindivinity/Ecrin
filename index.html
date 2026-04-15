@@ -669,6 +669,16 @@ body {
   align-items: center;
 }
 
+.entry-cue {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
 .tag {
   font-size: 11px;
   color: var(--text-tertiary);
@@ -4474,6 +4484,7 @@ function renderEntryCard(e, returnView) {
       ${e.needsSorting ? `<span class="tag needs-sorting-tag">needs sorting</span>` : ''}
       ${e.reframed ? `<span class="reframed-mark">worked through</span>` : ''}
       ${hasReflection ? `<span class="reflection-dot" title="Has reflection"></span>` : ''}
+      ${!e.reframed && !selectState.active ? `<span class="entry-cue">look closer ›</span>` : ''}
     </div>
   </div>`;
 }
@@ -5944,7 +5955,7 @@ function saveName() {
   // Button confirmation state — clear any pending timer first
   if (_saveNameTimer) clearTimeout(_saveNameTimer);
   if (btn) {
-    btn.textContent = 'saved •';
+    btn.innerHTML = 'saved <span style="display:inline-block;width:5px;height:5px;background:var(--accent);border-radius:50%;vertical-align:baseline;margin-left:2px;margin-bottom:-3px;"></span>';
     btn.style.opacity = '0.7';
   }
 
