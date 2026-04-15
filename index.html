@@ -3489,7 +3489,7 @@ body {
     <!-- AI note -->
     <div class="ai-note" id="ai-note"></div>
 
-    <div class="sort-ai-guidance">AI-assisted suggestion — you can adjust anything.</div>
+    <div class="sort-ai-guidance">AI-assisted suggestion. You can adjust anything.</div>
 
     <!-- Choose for me -->
     <div class="choose-for-me-wrap">
@@ -3742,7 +3742,7 @@ const CAT_ANCHOR = {
   'Creativity':          'Can reflect tension between potential and expression',
   'Body & Health':         'Sometimes tied to how safety is felt in the body',
   'Control/Uncertainty': 'Often rooted in difficulty trusting the unknown',
-  'Other':               'Still finding its place — worth sitting with'
+  'Other':               'Still finding its place. Worth sitting with.'
 };
 
 function catAnchor(name) {
@@ -4029,7 +4029,7 @@ function renderIntelligenceLine() {
     `${cat.toLowerCase()} has been asking for your attention lately.`,
     `you keep returning to ${cat.toLowerCase()}.`,
     `${cat.toLowerCase()} is the thread that keeps surfacing.`,
-    `${cat.toLowerCase()} keeps coming up — there may be more there.`,
+    `${cat.toLowerCase()} keeps coming up. There may be more there.`,
     `this theme has been gently pulling you back.`
   ];
 
@@ -5345,7 +5345,7 @@ function chooseForMe() {
     sortState.depth    = 'Repeating Pattern';
     sortState.impact   = 'Medium';
     document.getElementById('choose-note').textContent =
-      'Saved with general defaults — you can always edit this later.';
+      'Saved with general defaults. You can always edit this later.';
   }
 
   userModified = true;
@@ -6113,7 +6113,7 @@ function renderPatterns() {
   let summaryText = '';
   if (weekTopEntry && weekTopEntry[1] >= 2) {
     const cat = weekTopEntry[0].toLowerCase();
-    summaryText = `You've been thinking a lot about ${cat} this week — most of it unresolved.`;
+    summaryText = `You've been thinking a lot about ${cat} this week. Most of it is unresolved.`;
   } else if (mostActiveCatData.unresolved >= 3) {
     const cat = mostActiveCat.toLowerCase();
     summaryText = `${mostActiveCat} keeps coming back. You have ${mostActiveCatData.unresolved} unresolved thoughts there.`;
@@ -6265,7 +6265,7 @@ function importDataStep1() {
   if (!importArmed) {
     importArmed = true;
     btn.classList.add('import-armed');
-    lbl.textContent = 'This replaces all thoughts — tap again';
+    lbl.textContent = 'This replaces all thoughts. Tap again to confirm.';
     if (importArmTimer) clearTimeout(importArmTimer);
     importArmTimer = setTimeout(() => {
       importArmed = false;
