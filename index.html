@@ -4021,7 +4021,7 @@ Cindy Flores, MD
 const STORAGE_KEY = 'ritten_entries_v1';
 const THEME_KEY   = 'ritten_theme_v1';
 const MSG_IDX_KEY = 'ritten_msg_idx_v1';
-const SEEDED_KEY  = 'ritten_seeded_v2';
+const SEEDED_KEY  = 'ritten_seeded_v3';
 const NAME_KEY    = 'ritten_name_v1';
 const PRIVACY_KEY   = 'ecrin_show_previews_v1';
 const VIEW_MODE_KEY = 'ecrin_view_mode_v1'; // 'focus' | 'grid' | 'stream'
@@ -4322,6 +4322,84 @@ const SEED_ENTRIES = [
     needsSorting: false,
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 13,
     updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 13
+  },
+  {
+    id: 'seed_13',
+    text: "Why do I feel like I need to justify resting, even to myself?",
+    category: 'Self-Worth',
+    depth: 'Core Belief',
+    impact: 'Far-Reaching',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 2,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 2
+  },
+  {
+    id: 'seed_14',
+    text: "Why does receiving a compliment make me uncomfortable instead of glad?",
+    category: 'Self-Worth',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 4,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 4
+  },
+  {
+    id: 'seed_15',
+    text: "Why do I measure my worth by what I produced that day?",
+    category: 'Self-Worth',
+    depth: 'Core Belief',
+    impact: 'Far-Reaching',
+    status: 'Explored',
+    reframed: true,
+    reflection: "Worth is not output. It was never supposed to be.",
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 6,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 2
+  },
+  {
+    id: 'seed_16',
+    text: "Why do I keep comparing where I am to where I thought I'd be by now?",
+    category: 'Career',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 1,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 1
+  },
+  {
+    id: 'seed_17',
+    text: "Why do I feel relieved when plans cancel, even ones I was looking forward to?",
+    category: 'Control/Uncertainty',
+    depth: 'Repeating Pattern',
+    impact: 'Medium',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 3,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 3
+  },
+  {
+    id: 'seed_18',
+    text: "Why do I feel like I have to be fully ready before I let someone get close?",
+    category: 'Love',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 5,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 5
   }
 ];
 
@@ -6590,15 +6668,17 @@ async function renderPatterns() {
   if (!el) return;
 
   const allEntries = loadEntries();
+  // Seeds never contribute to patterns — only real captured thoughts
+  const allReal = allEntries.filter(e => !e.id || !e.id.startsWith('seed_'));
   const now = Date.now();
   const twoWeeksAgo = now - 14 * 24 * 60 * 60 * 1000;
 
   const entries = patternsWindow === '2w'
-    ? allEntries.filter(e => e.createdAt >= twoWeeksAgo)
-    : allEntries;
+    ? allReal.filter(e => e.createdAt >= twoWeeksAgo)
+    : allReal;
 
-  // Empty state
-  if (allEntries.length < 2) {
+  // Empty state — no real thoughts yet
+  if (allReal.length < 2) {
     el.innerHTML = `<div class="patterns-empty">Your patterns will appear here as you keep noticing.<br>Start with one thought.</div>`;
     return;
   }
@@ -6613,7 +6693,7 @@ async function renderPatterns() {
         </div>
       </div>
       <div id="patterns-themes-wrap"></div>`;
-    renderPatternsThemes(allEntries, document.getElementById('patterns-themes-wrap'), false);
+    renderPatternsThemes(allReal, document.getElementById('patterns-themes-wrap'), false);
     return;
   }
 
@@ -6705,8 +6785,11 @@ function showPatternsParagraph(text) {
 function renderPatternsThemes(entries, container, dimmed) {
   if (!container) return;
 
+  // Only show real thoughts — seeds don't create patterns
+  const realEntries = entries.filter(e => !e.id || !e.id.startsWith('seed_'));
+
   const catMap = {};
-  entries.forEach(e => {
+  realEntries.forEach(e => {
     const cat = e.category === 'Body/Health' ? 'Body & Health' : e.category;
     if (!catMap[cat]) catMap[cat] = { unresolved: 0, total: 0 };
     catMap[cat].total++;
