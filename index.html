@@ -168,7 +168,7 @@ body {
 ═══════════════════════════════════════ */
 
 .header {
-  padding: max(40px, env(safe-area-inset-top, 0px) + 12px) 20px 12px;
+  padding: max(40px, env(safe-area-inset-top, 0px) + 20px) 20px 12px;
   position: relative;
 }
 
@@ -550,7 +550,7 @@ body {
 .view.active { display: block; }
 
 .view-header {
-  padding: max(52px, env(safe-area-inset-top, 0px) + 16px) 20px 20px;
+  padding: max(52px, env(safe-area-inset-top, 0px) + 24px) 20px 20px;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -1000,7 +1000,7 @@ body {
 }
 
 .sort-header {
-  padding: max(52px, env(safe-area-inset-top, 0px) + 16px) 20px 12px;
+  padding: max(52px, env(safe-area-inset-top, 0px) + 24px) 20px 12px;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -1239,7 +1239,7 @@ body {
 }
 
 .detail-header {
-  padding: max(52px, env(safe-area-inset-top, 0px) + 16px) 20px 12px;
+  padding: max(52px, env(safe-area-inset-top, 0px) + 24px) 20px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1987,7 +1987,7 @@ body {
    PATTERNS PAGE
 ═══════════════════════════════════════ */
 
-.patterns-header { padding: max(52px, env(safe-area-inset-top, 0px) + 16px) 20px 0; }
+.patterns-header { padding: max(52px, env(safe-area-inset-top, 0px) + 24px) 20px 0; }
 
 .patterns-title {
   font-family: 'DM Serif Display', Georgia, serif;
@@ -2552,15 +2552,15 @@ body {
 }
 
 .welcome-tagline {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--text-tertiary);
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-primary);
   font-style: italic;
-  line-height: 1.6;
-  max-width: 260px;
-  margin: 0 auto 48px;
-  opacity: 0.8;
+  line-height: 1.5;
+  max-width: 300px;
+  margin: 0 auto 56px;
+  text-align: center;
 }
 
 .welcome-enter-btn {
@@ -2768,7 +2768,7 @@ body {
 
 .tutorial-body {
   flex: 1;
-  padding: max(72px, env(safe-area-inset-top, 0px) + 36px) 32px 40px;
+  padding: max(72px, env(safe-area-inset-top, 0px) + 44px) 32px 40px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -2776,7 +2776,7 @@ body {
 
 .tutorial-close-btn {
   position: absolute;
-  top: max(20px, env(safe-area-inset-top, 0px) + 8px);
+  top: max(20px, env(safe-area-inset-top, 0px) + 16px);
   right: 20px;
   background: var(--card);
   border: 1px solid var(--border);
@@ -2921,7 +2921,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: max(52px, env(safe-area-inset-top, 0px) + 16px) 20px 14px;
+  padding: max(52px, env(safe-area-inset-top, 0px) + 24px) 20px 14px;
   flex-shrink: 0;
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -3296,7 +3296,7 @@ body {
 .about-header {
   display: flex;
   align-items: center;
-  padding: max(52px, env(safe-area-inset-top, 0px) + 16px) 20px 0;
+  padding: max(52px, env(safe-area-inset-top, 0px) + 24px) 20px 0;
   margin-bottom: 32px;
   max-width: 480px;
   width: 100%;
@@ -3404,7 +3404,6 @@ body {
 </div>
 
 <div class="welcome-screen" id="welcome-screen" style="display:none">
-  <div class="welcome-wordmark">Écrin<span class="welcome-wordmark-dot"></span></div>
   <div class="welcome-tagline">A quiet space to understand what keeps returning.</div>
   <button class="welcome-enter-btn" onclick="welcomeEnter()">Enter</button>
 </div>
