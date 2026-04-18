@@ -2776,7 +2776,7 @@ body {
 
 .tutorial-close-btn {
   position: absolute;
-  top: 20px;
+  top: max(20px, env(safe-area-inset-top, 0px) + 8px);
   right: 20px;
   background: var(--card);
   border: 1px solid var(--border);
