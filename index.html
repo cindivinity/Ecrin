@@ -1235,7 +1235,7 @@ body {
 }
 
 .detail-header {
-  padding: 52px 20px 12px;
+  padding: max(52px, env(safe-area-inset-top, 0px) + 16px) 20px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -6768,6 +6768,18 @@ function tutorialEnter() {
 }
 
 (function init() {
+  // Silent cache migration — clear old insight cache entries missing new fields
+  try {
+    const prefix = 'ecrin_insight_v1_';
+    Object.keys(localStorage)
+      .filter(k => k.startsWith(prefix))
+      .forEach(k => {
+        try {
+          const entry = JSON.parse(localStorage.getItem(k) || '{}');
+          if (!entry.reframesHtml) localStorage.removeItem(k);
+        } catch(e) { localStorage.removeItem(k); }
+      });
+  } catch(e) {}
   const welcomed    = localStorage.getItem(WELCOMED_KEY);
   const tutorialSeen = localStorage.getItem(TUTORIAL_KEY);
 
