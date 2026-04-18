@@ -3226,7 +3226,7 @@ body {
 
     <div class="tutorial-section">
       <div class="tutorial-section-heading">A few more things</div>
-      <div class="tutorial-section-body">Long press any theme card to pin it, rename it, or change its emoji. Use search to find a specific thought. When you mark something as worked through it moves quietly out of the active view. Nothing gets deleted.</div>
+      <div class="tutorial-section-body">Long press any theme card to pin it or rename it. Use search to find a specific thought. When you mark something as worked through it moves quietly out of the active view. Nothing gets deleted.</div>
     </div>
 
     <div class="tutorial-closing">
@@ -5705,7 +5705,7 @@ async function generateRevealInsight(entry) {
     function parseReframes(match) {
       if (!match) return '';
       const sentences = match[1].trim().split('\n')
-        .map(l => l.trim())
+        .map(l => cleanLine(l.trim()))
         .filter(l => l.length > 10)
         .slice(0, 2);
       return sentences.map(s => `<div class="reveal-reframe-sentence">${escHtml(s)}</div>`).join('');
