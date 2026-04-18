@@ -175,9 +175,26 @@ body {
 .header-top {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-bottom: 16px;
 }
+
+.header-search-btn {
+  font-size: 16px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 8px;
+  margin: -8px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s;
+}
+
+.header-search-btn:active { opacity: 0.4; }
 
 .wordmark {
   font-family: 'DM Serif Display', Georgia, serif;
@@ -494,14 +511,14 @@ body {
 
 .fab {
   position: fixed;
-  bottom: 72px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
   right: 20px;
   background: var(--accent);
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   padding: 0;
   display: flex;
   align-items: center;
@@ -2048,6 +2065,11 @@ body {
   font-weight: 300;
   color: var(--text-secondary);
   line-height: 1.85;
+  margin: 0 0 14px 0;
+}
+
+.patterns-paragraph-text:last-child {
+  margin-bottom: 0;
 }
 
 .patterns-paragraph-loading {
@@ -2101,14 +2123,6 @@ body {
   font-size: 15px;
   font-weight: 500;
   color: var(--text-primary);
-}
-
-.patterns-overflow {
-  text-align: center;
-  font-size: 12px;
-  color: var(--text-tertiary);
-  font-style: italic;
-  padding: 4px 20px 16px;
 }
 
 /* Summary card — the one strong interpretive line */
@@ -2888,19 +2902,6 @@ body {
 
 .clear-examples-btn:active { opacity: 0.35; }
 
-.home-search-entry {
-  text-align: right;
-  padding: 24px 24px 48px;
-  font-size: 13px;
-  font-family: 'DM Sans', sans-serif;
-  color: var(--text-tertiary);
-  letter-spacing: 0.08em;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.15s;
-}
-.home-search-entry:active { opacity: 0.4; }
-
 /* search overlay */
 .search-overlay {
   display: none;
@@ -3506,6 +3507,7 @@ and it's hard to make sense of them?</div>
     <div class="header">
       <div class="header-top">
         <div class="wordmark">Écrin<span class="wordmark-dot"></span></div>
+        <div class="header-search-btn" onclick="openSearch()">⌕</div>
       </div>
 
       <div class="greeting-block">
@@ -3534,9 +3536,6 @@ and it's hard to make sense of them?</div>
     <div class="categories-list" id="categories-list">
       <!-- rendered by JS -->
     </div>
-
-    <!-- Search entry — bottom right, below all themes -->
-    <div class="home-search-entry" onclick="openSearch()">⌕ search</div>
 
   </div>
 
@@ -6787,19 +6786,28 @@ async function fillPatternsParagraph(entries) {
 function showPatternsParagraph(text) {
   const card = document.getElementById('patterns-paragraph-card');
   if (!card) return;
+
+  // Split into sentences and group into 2-sentence paragraphs
+  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+  const paras = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    paras.push(sentences.slice(i, i + 2).join(' ').trim());
+  }
+  const paraHtml = paras
+    .filter(p => p.length > 0)
+    .map(p => `<p class="patterns-paragraph-text">${escHtml(p)}</p>`)
+    .join('');
+
   card.innerHTML = `
     <div class="patterns-paragraph-label">what this suggests</div>
-    <div class="patterns-paragraph-text">${escHtml(text)}</div>`;
+    ${paraHtml}`;
 }
 
 function renderPatternsThemes(entries, container, dimmed) {
   if (!container) return;
 
-  // Only show real thoughts — seeds don't create patterns
-  const realEntries = entries.filter(e => !e.id || !e.id.startsWith('seed_'));
-
   const catMap = {};
-  realEntries.forEach(e => {
+  entries.forEach(e => {
     const cat = e.category === 'Body/Health' ? 'Body & Health' : e.category;
     if (!catMap[cat]) catMap[cat] = { unresolved: 0, total: 0 };
     catMap[cat].total++;
@@ -6813,7 +6821,6 @@ function renderPatternsThemes(entries, container, dimmed) {
   if (sorted.length === 0) { container.innerHTML = ''; return; }
 
   const visible = sorted.slice(0, 3);
-  const overflow = sorted.length - 3;
 
   const label = `
     <div class="patterns-section-label" style="margin-top:0;">where attention is still held</div>
@@ -6826,11 +6833,7 @@ function renderPatternsThemes(entries, container, dimmed) {
     </div>`;
   }).join('');
 
-  const overflowLine = overflow > 0
-    ? `<div class="patterns-overflow">and ${overflow} other${overflow === 1 ? '' : 's'}</div>`
-    : '';
-
-  container.innerHTML = label + `<div class="patterns-attention-group">${cards}</div>` + overflowLine;
+  container.innerHTML = label + `<div class="patterns-attention-group">${cards}</div>`;
 }
 
 /* ═══════════════════════════════════════
