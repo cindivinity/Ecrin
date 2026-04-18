@@ -2552,7 +2552,9 @@ body {
   border-radius: 50%;
   vertical-align: middle;
   margin-left: 4px;
-  margin-bottom: 3px;
+  margin-bottom: -2px;
+  position: relative;
+  top: 4px;
   font-size: 0;
 }
 
@@ -2871,20 +2873,22 @@ body {
 /* clear examples button */
 #clear-examples-wrap {
   padding: 0 20px 14px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .clear-examples-btn {
   background: transparent;
-  border: 1px solid var(--border-subtle);
+  border: 1px solid var(--accent);
   border-radius: 20px;
   padding: 7px 16px;
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
-  color: var(--text-tertiary);
+  color: var(--accent);
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: opacity 0.15s;
-  opacity: 0.65;
+  opacity: 0.6;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -3397,13 +3401,12 @@ body {
 <!-- ══════════ WELCOME SCREEN ══════════ -->
 <!-- ══════════ SPLASH SCREEN ══════════ -->
 <div id="splash-screen" style="display:none;position:fixed;inset:0;background:#1E2D2D;z-index:2000;flex-direction:column;align-items:center;justify-content:center;gap:16px;">
-  <svg id="splash-logo" width="108" height="108" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" style="opacity:0;">
-    <rect width="512" height="512" rx="115" fill="#1E2D2D"/>
+  <svg id="splash-logo" width="200" height="40" viewBox="36 194 440 120" xmlns="http://www.w3.org/2000/svg" style="opacity:0;">
     <path d="M36,256 C84,256 102,208 144,222 C186,236 194,278 236,260 C278,242 286,194 328,210 C370,226 378,264 416,246 C442,234 456,220 476,226"
       stroke="#F6FAF9" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   </svg>
   <div style="display:flex;align-items:baseline;">
-    <span id="splash-wordmark" style="font-family:'DM Serif Display',Georgia,serif;font-size:30px;letter-spacing:0.06em;color:#F6FAF9;opacity:0;">Écrin</span><span id="splash-dot" style="display:inline-block;width:7px;height:7px;background:#2A9D9B;border-radius:50%;margin-left:4px;margin-bottom:3px;vertical-align:middle;opacity:0;font-size:0;"></span>
+    <span id="splash-wordmark" style="font-family:'DM Serif Display',Georgia,serif;font-size:30px;letter-spacing:0.06em;color:#F6FAF9;opacity:0;">Écrin</span><span id="splash-dot" style="display:inline-block;width:7px;height:7px;background:#2A9D9B;border-radius:50%;margin-left:4px;margin-bottom:-2px;position:relative;top:4px;vertical-align:middle;opacity:0;font-size:0;"></span>
   </div>
 </div>
 
@@ -4651,7 +4654,7 @@ function renderHome() {
   // Clear examples button — show if any seed entries exist
   const hasSeed = entries.some(e => e.id && e.id.startsWith('seed_'));
   const clearWrap = document.getElementById('clear-examples-wrap');
-  if (clearWrap) clearWrap.style.display = hasSeed ? 'block' : 'none';
+  if (clearWrap) clearWrap.style.display = hasSeed ? 'flex' : 'none';
 
   if (catData.length === 0) {
     list.innerHTML = `
