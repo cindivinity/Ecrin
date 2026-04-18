@@ -128,7 +128,7 @@ html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   height: 100%;
-  background: var(--bg);
+  background: #1E2D2D;
 }
 
 body {
@@ -7208,6 +7208,8 @@ const TUTORIAL_KEY = 'ecrin_tutorial_seen_v1';
 let tutorialReturnTo = null; // 'settings' or 'app'
 
 function startApp() {
+  document.documentElement.style.background = '';
+  document.body.style.background = '';
   initData();
   applyTheme(loadTheme());
   initMessages();
@@ -7250,6 +7252,8 @@ The more precisely you can name it, the more the work lands.`
 };
 
 function openOnboarding() {
+  document.documentElement.style.background = '';
+  document.body.style.background = '';
   document.getElementById('onboarding-screen').style.display = 'flex';
   onboardingStep(1);
 }
@@ -7363,6 +7367,8 @@ function tutorialEnter() {
     // Brand new user — show splash with staggered animation then welcome
     const splash = document.getElementById('splash-screen');
     splash.style.display = 'flex';
+    document.body.style.background = '#1E2D2D';
+    document.documentElement.style.background = '#1E2D2D';
 
     // Need one frame before animations fire on a freshly displayed element
     requestAnimationFrame(() => {
@@ -7392,6 +7398,9 @@ function tutorialEnter() {
           setTimeout(() => {
             splash.style.display = 'none';
             splash.style.animation = '';
+            document.body.style.background = '';
+            document.documentElement.style.background = '';
+            document.documentElement.style.background = 'var(--bg)';
             document.getElementById('welcome-screen').style.display = 'flex';
           }, 700);
         }, 3600);
