@@ -2568,6 +2568,177 @@ body {
 }
 
 /* ═══════════════════════════════════════
+   ONBOARDING SCREEN
+═══════════════════════════════════════ */
+
+.onboarding-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px 40px;
+}
+
+.onboarding-inner {
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.onboarding-step {
+  animation: revealFadeIn 0.4s ease both;
+}
+
+.onboarding-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 26px;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+  line-height: 1.3;
+  margin-bottom: 28px;
+}
+
+.onboarding-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  white-space: pre-line;
+  margin-bottom: 28px;
+}
+
+.onboarding-anchor {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent);
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.onboarding-continue-btn {
+  width: 100%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 15px 48px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 4px 20px var(--shadow-lift);
+  margin-bottom: 16px;
+}
+
+.onboarding-continue-btn:active {
+  transform: scale(0.96);
+  opacity: 0.88;
+}
+
+.onboarding-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.onboarding-option {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.onboarding-option:active {
+  transform: scale(0.98);
+}
+
+.onboarding-option.selected {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.onboarding-option-emoji {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.onboarding-option-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.onboarding-skip-btn {
+  background: transparent;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  padding: 8px;
+  display: block;
+  margin: 0 auto;
+  opacity: 0.6;
+}
+
+.onboarding-result-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  white-space: pre-line;
+  margin-bottom: 24px;
+}
+
+.onboarding-result-anchor {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  padding: 18px 20px;
+  background: var(--accent-soft);
+  border-radius: 16px;
+}
+
+.onboarding-back-btn {
+  background: transparent;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  padding: 8px;
+  display: block;
+  margin: 0 auto;
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════
    TUTORIAL SCREEN
 ═══════════════════════════════════════ */
 
@@ -3197,6 +3368,59 @@ body {
   <div class="welcome-wordmark">Écrin<span class="welcome-wordmark-dot">•</span></div>
   <div class="welcome-tagline">A quiet space to understand what keeps returning.</div>
   <button class="welcome-enter-btn" onclick="welcomeEnter()">Enter</button>
+</div>
+
+<!-- ══════════ ONBOARDING SCREEN ══════════ -->
+<div class="onboarding-screen" id="onboarding-screen" style="display:none">
+  <div class="onboarding-inner">
+
+    <!-- Step 1: Hook -->
+    <div class="onboarding-step" id="onboarding-step-1">
+      <div class="onboarding-title">Something gets lost</div>
+      <div class="onboarding-body">Do you ever have a thought that brings you down during the day,
+
+and then later you can't fully remember it,
+but it still feels like it's there?
+
+Or a few thoughts come back all at once,
+and it's hard to make sense of them?</div>
+      <div class="onboarding-anchor">That's what Écrin helps you track.</div>
+      <button class="onboarding-continue-btn" onclick="onboardingStep(2)">continue</button>
+    </div>
+
+    <!-- Step 2: Question -->
+    <div class="onboarding-step" id="onboarding-step-2" style="display:none">
+      <div class="onboarding-title">How do you tend to make sense of things?</div>
+      <div class="onboarding-options">
+        <button class="onboarding-option" id="opt-symbols" onclick="selectProcessType('symbols')">
+          <span class="onboarding-option-emoji">🌙</span>
+          <span class="onboarding-option-label">Symbols and imagery</span>
+        </button>
+        <button class="onboarding-option" id="opt-writing" onclick="selectProcessType('writing')">
+          <span class="onboarding-option-emoji">✍️</span>
+          <span class="onboarding-option-label">Writing things out</span>
+        </button>
+        <button class="onboarding-option" id="opt-talking" onclick="selectProcessType('talking')">
+          <span class="onboarding-option-emoji">🗣</span>
+          <span class="onboarding-option-label">Talking it through</span>
+        </button>
+        <button class="onboarding-option" id="opt-energy" onclick="selectProcessType('energy')">
+          <span class="onboarding-option-emoji">🤲</span>
+          <span class="onboarding-option-label">Feeling it in the body</span>
+        </button>
+      </div>
+      <button class="onboarding-skip-btn" onclick="skipOnboarding()">skip</button>
+    </div>
+
+    <!-- Step 3: Result -->
+    <div class="onboarding-step" id="onboarding-step-3" style="display:none">
+      <div class="onboarding-result-body" id="onboarding-result-body"></div>
+      <div class="onboarding-result-anchor">Whatever helps you process, patterns become clearer when you can see them over time.</div>
+      <button class="onboarding-continue-btn" onclick="finishOnboarding()">start noticing</button>
+      <button class="onboarding-back-btn" onclick="onboardingStep(2)">change answer</button>
+    </div>
+
+  </div>
 </div>
 
 <!-- ══════════ TUTORIAL SCREEN ══════════ -->
@@ -6734,13 +6958,92 @@ function startApp() {
   document.getElementById('fab').style.display = '';
 }
 
+const PROCESS_TYPE_KEY = 'ecrin_process_type_v1';
+
+const ONBOARDING_RESULTS = {
+  symbols: `Images and symbols carry meaning your mind already understands before words arrive.
+
+Écrin works well alongside that. Capture the thought when it surfaces, then bring it to your cards. What you pull often makes more sense when you can see what's been repeating underneath.
+
+Tarot and oracle work best as a response to something named, not something vague.`,
+
+  writing: `Writing slows the mind down enough to actually hear what it's saying.
+
+Écrin is where you catch the thought before it disappears. Your journal is where you go deeper. The two together create something you can look back on and see what hasn't moved.
+
+Journaling alongside Écrin gives the pattern somewhere to land.`,
+
+  talking: `Some thoughts only become clear when spoken out loud.
+
+Écrin holds onto what surfaces between those conversations. The things that come up again after a session, or the feeling that lingers after a call with a friend. Those are worth tracking.
+
+Patterns show up in what keeps returning, not just what gets discussed.`,
+
+  energy: `You process through the body before the mind catches up.
+
+EFT and somatic work are most effective when you know what you're working with. Écrin helps you name the thought so the body has something specific to release, not just a general feeling of weight.
+
+The more precisely you can name it, the more the work lands.`
+};
+
+function openOnboarding() {
+  document.getElementById('onboarding-screen').style.display = 'flex';
+  onboardingStep(1);
+}
+
+function onboardingStep(n) {
+  [1, 2, 3].forEach(i => {
+    const el = document.getElementById('onboarding-step-' + i);
+    if (el) el.style.display = i === n ? 'block' : 'none';
+  });
+}
+
+function selectProcessType(type) {
+  // Visual selection feedback
+  document.querySelectorAll('.onboarding-option').forEach(el => el.classList.remove('selected'));
+  const optMap = { symbols: 'opt-symbols', writing: 'opt-writing', talking: 'opt-talking', energy: 'opt-energy' };
+  const btn = document.getElementById(optMap[type]);
+  if (btn) btn.classList.add('selected');
+
+  // Short delay then reveal result
+  setTimeout(() => {
+    localStorage.setItem(PROCESS_TYPE_KEY, type);
+    const body = document.getElementById('onboarding-result-body');
+    if (body) {
+      const text = ONBOARDING_RESULTS[type] || '';
+      body.innerHTML = text
+        .split('\n\n')
+        .map(para => `<p style="margin:0 0 18px 0;">${escHtml(para.replace(/\n/g, '<br>'))}</p>`)
+        .join('');
+    }
+    onboardingStep(3);
+  }, 350);
+}
+
+function skipOnboarding() {
+  localStorage.setItem(PROCESS_TYPE_KEY, 'skipped');
+  finishOnboarding();
+}
+
+function finishOnboarding() {
+  const os = document.getElementById('onboarding-screen');
+  os.style.opacity = '0';
+  os.style.transition = 'opacity 0.4s ease';
+  setTimeout(() => {
+    os.style.display = 'none';
+    os.style.opacity = '';
+    os.style.transition = '';
+    openTutorial('app');
+  }, 400);
+}
+
 function welcomeEnter() {
   localStorage.setItem(WELCOMED_KEY, '1');
   const ws = document.getElementById('welcome-screen');
   ws.classList.add('fade-out');
   setTimeout(() => {
     ws.style.display = 'none';
-    openTutorial('app');
+    openOnboarding();
   }, 600);
 }
 
@@ -6782,21 +7085,25 @@ function tutorialEnter() {
   } catch(e) {}
   const welcomed    = localStorage.getItem(WELCOMED_KEY);
   const tutorialSeen = localStorage.getItem(TUTORIAL_KEY);
+  const processTypeSeen = localStorage.getItem(PROCESS_TYPE_KEY);
 
   // Existing user detection: if they already have entries, skip onboarding
   const hasExistingData = !!localStorage.getItem(STORAGE_KEY);
 
   if (hasExistingData || (welcomed && tutorialSeen)) {
-    // Returning user with data — straight to app
-    // Also stamp both flags so they never see onboarding again
+    // Returning user — straight to app, stamp all flags
     localStorage.setItem(WELCOMED_KEY, '1');
     localStorage.setItem(TUTORIAL_KEY, '1');
+    if (!processTypeSeen) localStorage.setItem(PROCESS_TYPE_KEY, 'skipped');
     startApp();
   } else if (!welcomed) {
     // Brand new user — show welcome screen
     document.getElementById('welcome-screen').style.display = 'flex';
+  } else if (welcomed && !processTypeSeen) {
+    // Welcomed but hasn't done onboarding yet
+    openOnboarding();
   } else if (!tutorialSeen) {
-    // Welcomed but hasn't seen tutorial yet
+    // Done onboarding but hasn't seen tutorial
     openTutorial('app');
   } else {
     startApp();
