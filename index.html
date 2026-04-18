@@ -1432,6 +1432,24 @@ body {
   font-style: normal;
 }
 
+/* reframes body — sentences not bullets */
+.reveal-reframes-body {
+  padding: 18px 20px;
+  background: var(--accent-soft);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.reveal-reframe-sentence {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--text-primary);
+}
+
 .btn-reframe {
   width: 100%;
   box-sizing: border-box;
@@ -3198,7 +3216,7 @@ body {
 
     <div class="tutorial-section">
       <div class="tutorial-section-heading">Look closer</div>
-      <div class="tutorial-section-body">Tap any thought to go deeper. The app reflects what the pattern may be about, how it tends to show up in behavior, and what it might open up. Take what you find into journaling, therapy, tarot, or whatever practice you use to reframe. When something has genuinely shifted, come back and mark it as worked through.</div>
+      <div class="tutorial-section-body">Tap any thought to go deeper. The app reflects what the pattern may be about, how it tends to show up in behavior, and what it might open up. Consider the suggested reframes as a starting point. Then take what you find into journaling, therapy, EFT, tarot, or whatever practice you use to work through it. When something has genuinely shifted, come back and mark it as worked through.</div>
     </div>
 
     <div class="tutorial-section">
@@ -3615,6 +3633,12 @@ body {
     <div class="reveal-section" id="reveal-openings" style="display:none">
       <div class="reveal-section-label">what this opens</div>
       <div class="reveal-behaviors-body" id="reveal-openings-body"></div>
+    </div>
+
+    <!-- 5. A clearer perspective — AI reframes -->
+    <div class="reveal-section" id="reveal-reframes" style="display:none">
+      <div class="reveal-section-label">a clearer perspective</div>
+      <div class="reveal-reframes-body" id="reveal-reframes-body"></div>
     </div>
 
     <!-- companion line -->
@@ -4814,6 +4838,7 @@ function showHome() {
 }
 
 function fabTapped() {
+  haptic(6);
   openCapture();
 }
 
@@ -4858,7 +4883,7 @@ function toggleBulk() {
 function captureThought() {
   const text = document.getElementById('capture-input').value.trim();
   if (!text) return;
-
+  haptic([10, 50, 10]);
   const entry = makeEntry(text, false);
   const entries = loadEntries();
   entries.push(entry);
@@ -5325,6 +5350,7 @@ let userModified = false; // track if user changed anything from defaults
 function openSortScreen(entry) {
   sortEntryId = entry.id;
   userModified = false;
+  haptic(8);
 
   // Run AI
   aiSuggestion = aiSuggest(entry.text);
@@ -5491,6 +5517,7 @@ function skipSort() {
 }
 
 function closeSortScreen() {
+  haptic(5);
   document.getElementById('sort-screen').classList.remove('open');
   renderHome();
   switchView('view-home');
@@ -5539,6 +5566,7 @@ let detailState     = null;   // live edits
 let detailDirty     = false;
 
 function openDetail(entryId, returnView) {
+  haptic(6);
   const entries = loadEntries();
   const entry = entries.find(e => e.id === entryId);
   if (!entry) return;
@@ -5576,6 +5604,7 @@ function openDetail(entryId, returnView) {
   // Reset reveal sections
   document.getElementById('reveal-behaviors').style.display = 'none';
   document.getElementById('reveal-openings').style.display = 'none';
+  document.getElementById('reveal-reframes').style.display = 'none';
   document.getElementById('reveal-companion').style.display = 'none';
   document.getElementById('btn-reframe').style.display = 'none';
   document.getElementById('reveal-move-list').style.display = 'none';
@@ -5603,7 +5632,7 @@ async function generateRevealInsight(entry) {
   const PROXY_URL = 'https://cindivinity--68cc08ce385011f181cb42b51c65c3df.web.val.run';
   const CACHE_PREFIX = 'ecrin_insight_v1_';
 
-  function renderRevealFlow(insightText, behaviorsHtml, openingsHtml) {
+  function renderRevealFlow(insightText, behaviorsHtml, openingsHtml, reframesHtml) {
     const insightBody = document.getElementById('reveal-insight-body');
     if (insightBody) {
       insightBody.innerHTML = `<div class="reveal-insight-text">${escHtml(insightText)}</div>`;
@@ -5623,13 +5652,21 @@ async function generateRevealInsight(entry) {
         openBody.innerHTML = openingsHtml;
         openEl.style.display = 'block';
       }
+    }, 500);
+    setTimeout(() => {
+      const reframeEl  = document.getElementById('reveal-reframes');
+      const reframeBody = document.getElementById('reveal-reframes-body');
+      if (reframeEl && reframeBody && reframesHtml) {
+        reframeBody.innerHTML = reframesHtml;
+        reframeEl.style.display = 'block';
+      }
       const companion = document.getElementById('reveal-companion');
       if (companion) companion.style.display = 'block';
-    }, 500);
+    }, 700);
     setTimeout(() => {
       const reframeBtn = document.getElementById('btn-reframe');
       if (reframeBtn) reframeBtn.style.display = 'flex';
-    }, 700);
+    }, 900);
   }
 
   function cleanLine(line) {
@@ -5643,9 +5680,10 @@ async function generateRevealInsight(entry) {
   }
 
   function parseSections(raw) {
-    const insightMatch   = raw.match(/\[INSIGHT\]([\s\S]*?)(?=\[BEHAVIORS\]|\[OPENINGS\]|$)/i);
-    const behaviorsMatch = raw.match(/\[BEHAVIORS\]([\s\S]*?)(?=\[OPENINGS\]|$)/i);
-    const openingsMatch  = raw.match(/\[OPENINGS\]([\s\S]*?)$/i);
+    const insightMatch   = raw.match(/\[INSIGHT\]([\s\S]*?)(?=\[BEHAVIORS\]|\[OPENINGS\]|\[REFRAMES\]|$)/i);
+    const behaviorsMatch = raw.match(/\[BEHAVIORS\]([\s\S]*?)(?=\[OPENINGS\]|\[REFRAMES\]|$)/i);
+    const openingsMatch  = raw.match(/\[OPENINGS\]([\s\S]*?)(?=\[REFRAMES\]|$)/i);
+    const reframesMatch  = raw.match(/\[REFRAMES\]([\s\S]*?)$/i);
 
     const insight = insightMatch
       ? insightMatch[1].trim().split('\n')
@@ -5664,10 +5702,20 @@ async function generateRevealInsight(entry) {
       return `<ul>${lines.map(l => `<li>${escHtml(l)}</li>`).join('')}</ul>`;
     }
 
+    function parseReframes(match) {
+      if (!match) return '';
+      const sentences = match[1].trim().split('\n')
+        .map(l => l.trim())
+        .filter(l => l.length > 10)
+        .slice(0, 2);
+      return sentences.map(s => `<div class="reveal-reframe-sentence">${escHtml(s)}</div>`).join('');
+    }
+
     return {
       insight,
       behaviorsHtml: parseList(behaviorsMatch),
-      openingsHtml:  parseList(openingsMatch)
+      openingsHtml:  parseList(openingsMatch),
+      reframesHtml:  parseReframes(reframesMatch)
     };
   }
 
@@ -5675,7 +5723,7 @@ async function generateRevealInsight(entry) {
     const fallback = CAT_BEHAVIOR[entry.category] || 'a recurring pattern worth sitting with';
     const fbItems = CAT_BEHAVIORS_FALLBACK[entry.category] || [];
     const fbHtml = fbItems.length ? '<ul>' + fbItems.map(l => `<li>${escHtml(cleanLine(l))}</li>`).join('') + '</ul>' : '';
-    renderRevealFlow(cleanLine(fallback), fbHtml, '');
+    renderRevealFlow(cleanLine(fallback), fbHtml, '', '');
   }
 
   // Check cache first
@@ -5684,7 +5732,7 @@ async function generateRevealInsight(entry) {
     const cached = localStorage.getItem(cacheKey);
     if (cached) {
       const parsed = JSON.parse(cached);
-      renderRevealFlow(parsed.insight, parsed.behaviorsHtml, parsed.openingsHtml || '');
+      renderRevealFlow(parsed.insight, parsed.behaviorsHtml, parsed.openingsHtml || '', parsed.reframesHtml || '');
       return;
     }
   } catch(e) {}
@@ -5727,14 +5775,14 @@ async function generateRevealInsight(entry) {
     const raw = data.result?.trim() || '';
     if (!raw) throw new Error('empty');
 
-    const { insight, behaviorsHtml, openingsHtml } = parseSections(raw);
+    const { insight, behaviorsHtml, openingsHtml, reframesHtml } = parseSections(raw);
     if (!insight) throw new Error('parse failed');
 
     try {
-      localStorage.setItem(cacheKey, JSON.stringify({ insight, behaviorsHtml, openingsHtml }));
+      localStorage.setItem(cacheKey, JSON.stringify({ insight, behaviorsHtml, openingsHtml, reframesHtml }));
     } catch(e) {}
 
-    renderRevealFlow(insight, behaviorsHtml, openingsHtml);
+    renderRevealFlow(insight, behaviorsHtml, openingsHtml, reframesHtml);
 
   } catch (err) {
     useFallback();
@@ -5846,6 +5894,7 @@ function deleteEntry() {
 
   if (!window._deleteConfirmPending) {
     // First tap — arm the confirm
+    haptic([8, 40, 8]);
     window._deleteConfirmPending = true;
     btn.classList.add('confirm-pending');
     lbl.textContent = 'Tap again to delete permanently';
@@ -5862,6 +5911,7 @@ function deleteEntry() {
   }
 
   // Second tap — execute deletion
+  haptic([15, 30, 15]);
   window._deleteConfirmPending = false;
 
   const entries = loadEntries();
