@@ -1582,17 +1582,6 @@ body {
 
 
 
-/* companion line */
-.reveal-companion {
-  text-align: center;
-  font-size: 12px;
-  color: var(--text-tertiary);
-  font-style: italic;
-  opacity: 0.7;
-  margin: 4px 20px 20px;
-  letter-spacing: 0.02em;
-}
-
 /* bottom actions group */
 .reveal-actions {
   display: flex;
@@ -3914,11 +3903,6 @@ and it's hard to make sense of them?</div>
       <div class="reveal-reframes-body" id="reveal-reframes-body"></div>
     </div>
 
-    <!-- companion line -->
-    <div class="reveal-companion" id="reveal-companion" style="display:none">
-      this thought is ready to be taken further
-    </div>
-
     <!-- Bottom actions — centered group -->
     <div class="reveal-actions">
 
@@ -6067,7 +6051,6 @@ function openDetail(entryId, returnView) {
   document.getElementById('reveal-behaviors').style.display = 'none';
   document.getElementById('reveal-openings').style.display = 'none';
   document.getElementById('reveal-reframes').style.display = 'none';
-  document.getElementById('reveal-companion').style.display = 'none';
   document.getElementById('btn-reframe').style.display = 'none';
   document.getElementById('reveal-move-list').style.display = 'none';
   document.getElementById('reveal-move-chevron').textContent = '▾';
@@ -6122,8 +6105,6 @@ async function generateRevealInsight(entry) {
         reframeBody.innerHTML = reframesHtml;
         reframeEl.style.display = 'block';
       }
-      const companion = document.getElementById('reveal-companion');
-      if (companion) companion.style.display = 'block';
     }, 700);
     setTimeout(() => {
       const reframeBtn = document.getElementById('btn-reframe');
@@ -6668,17 +6649,15 @@ async function renderPatterns() {
   if (!el) return;
 
   const allEntries = loadEntries();
-  // Seeds never contribute to patterns — only real captured thoughts
-  const allReal = allEntries.filter(e => !e.id || !e.id.startsWith('seed_'));
   const now = Date.now();
   const twoWeeksAgo = now - 14 * 24 * 60 * 60 * 1000;
 
   const entries = patternsWindow === '2w'
-    ? allReal.filter(e => e.createdAt >= twoWeeksAgo)
-    : allReal;
+    ? allEntries.filter(e => e.createdAt >= twoWeeksAgo)
+    : allEntries;
 
-  // Empty state — no real thoughts yet
-  if (allReal.length < 2) {
+  // Empty state
+  if (allEntries.length < 2) {
     el.innerHTML = `<div class="patterns-empty">Your patterns will appear here as you keep noticing.<br>Start with one thought.</div>`;
     return;
   }
@@ -6693,7 +6672,7 @@ async function renderPatterns() {
         </div>
       </div>
       <div id="patterns-themes-wrap"></div>`;
-    renderPatternsThemes(allReal, document.getElementById('patterns-themes-wrap'), false);
+    renderPatternsThemes(allEntries, document.getElementById('patterns-themes-wrap'), false);
     return;
   }
 
