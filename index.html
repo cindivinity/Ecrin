@@ -365,7 +365,7 @@ body {
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -394,6 +394,7 @@ body {
   font-size: 12px;
   color: var(--text-tertiary);
   line-height: 1.4;
+  margin-top: 5px;
   margin-bottom: 10px;
   font-style: italic;
 }
@@ -677,6 +678,28 @@ body {
   opacity: 0.6;
   letter-spacing: 0.02em;
   flex-shrink: 0;
+}
+
+.demo-tag {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  padding: 1px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
+.demo-banner {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .tag {
@@ -1235,7 +1258,7 @@ body {
 .detail-body {
   flex: 1;
   overflow-y: auto;
-  padding: 0 20px 40px;
+  padding: 0 0 40px;
   -webkit-overflow-scrolling: touch;
   max-width: 480px;
   width: 100%;
@@ -1247,6 +1270,7 @@ body {
   background: var(--card);
   border-radius: 18px;
   padding: 22px 20px;
+  margin: 0 20px;
   border: 1px solid var(--border);
   margin-bottom: 24px;
 }
@@ -1271,7 +1295,7 @@ body {
 
 /* reveal sections */
 .reveal-section {
-  margin-bottom: 22px;
+  margin: 0 20px 22px;
   animation: revealFadeIn 0.4s ease both;
 }
 
@@ -1330,18 +1354,6 @@ body {
 }
 
 /* pattern loop */
-.reveal-pattern-body {
-  font-size: 14px;
-  line-height: 2;
-  color: var(--text-secondary);
-  font-style: italic;
-  padding: 16px 20px;
-  background: var(--accent-soft);
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  white-space: pre-line;
-}
-
 /* recognition */
 .reveal-recognition-options {
   display: flex;
@@ -1436,7 +1448,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
 }
 
 .btn-reframe.not-reframed {
@@ -1507,7 +1519,7 @@ body {
 
 
 
-/* dirty indicator */
+/* hide reflection dot on seed entries */
 .dirty-dot {
   width: 7px;
   height: 7px;
@@ -1526,6 +1538,32 @@ body {
 .unsaved-bar.visible { transform: translateY(0); }
 
 
+
+/* companion line */
+.reveal-companion {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  opacity: 0.7;
+  margin: 4px 20px 20px;
+  letter-spacing: 0.02em;
+}
+
+/* bottom actions group */
+.reveal-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: calc(100% - 40px);
+  margin: 8px auto 0;
+}
+
+.reveal-actions .btn-reframe,
+.reveal-actions .reveal-move-section,
+.reveal-actions .btn-delete {
+  width: 100%;
+}
 
 /* delete button */
 .btn-delete {
@@ -1810,8 +1848,17 @@ body {
 
 /* insight sentence */
 
+.patterns-ai-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.4;
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
 
-/* stat grid */
+.patterns-ai-dot:nth-child(2) { animation-delay: 0.2s; }
+.patterns-ai-dot:nth-child(3) { animation-delay: 0.4s; }
 
 .insights-stat-card {
   background: var(--card);
@@ -1908,7 +1955,7 @@ body {
    PATTERNS PAGE
 ═══════════════════════════════════════ */
 
-.patterns-header { padding: 52px 20px 16px; }
+.patterns-header { padding: 52px 20px 0; }
 
 .patterns-title {
   font-family: 'DM Serif Display', Georgia, serif;
@@ -1922,34 +1969,116 @@ body {
   font-size: 13px;
   color: var(--text-tertiary);
   font-style: italic;
+  margin-bottom: 20px;
+}
+
+/* time window toggle */
+.patterns-toggle {
+  display: flex;
+  gap: 0;
+  background: var(--card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 3px;
+  width: fit-content;
+  margin-bottom: 24px;
+}
+
+.patterns-toggle-btn {
+  background: transparent;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  padding: 5px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.patterns-toggle-btn.active {
+  background: var(--accent-soft);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* AI paragraph card */
+.patterns-paragraph-card {
+  margin: 0 20px 28px;
+  padding: 24px 22px;
+  background: var(--accent-soft);
+  border-radius: 18px;
+  border: none;
+}
+
+.patterns-paragraph-label {
+  display: none;
+}
+
+.patterns-paragraph-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.85;
+}
+
+.patterns-paragraph-loading {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 4px 0;
+}
+
+/* theme attention cards */
+.patterns-attention-group {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.patterns-attention-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: opacity 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.patterns-attention-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--pat-accent, var(--accent));
+  border-radius: 16px 16px 0 0;
+}
+
+.patterns-attention-card:active { opacity: 0.7; }
+
+.patterns-attention-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.patterns-overflow {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  padding: 4px 20px 16px;
 }
 
 /* Summary card — the one strong interpretive line */
-.patterns-summary-card {
-  margin: 0 20px 28px;
-  padding: 20px 20px;
-  background: var(--accent-soft);
-  border-radius: 18px;
-  border: 1px solid var(--border);
-}
-
-.patterns-summary-text {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 17px;
-  font-style: italic;
-  color: var(--text-primary);
-  line-height: 1.6;
-  margin-bottom: 10px;
-}
-
-.patterns-summary-sub {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  line-height: 1.5;
-  font-style: italic;
-}
-
-/* Section label */
 .patterns-section-label {
   font-size: 11px;
   font-weight: 500;
@@ -1962,97 +2091,6 @@ body {
 }
 
 .patterns-section-label:first-of-type { margin-top: 0; }
-
-/* Theme group cards */
-.patterns-group {
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.patterns-theme-card {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 16px 18px;
-  border: 1px solid var(--border-subtle);
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.patterns-theme-card:active { opacity: 0.7; }
-
-.patterns-theme-card.softened {
-  opacity: 0.65;
-  background: var(--reframed-bg);
-  border-color: var(--border-subtle);
-}
-
-.patterns-theme-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-
-.patterns-theme-name {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.patterns-theme-count {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  background: var(--accent-soft-2);
-  padding: 2px 9px;
-  border-radius: 20px;
-}
-
-.patterns-theme-preview {
-  font-size: 13px;
-  color: var(--text-secondary);
-  font-style: italic;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.patterns-theme-status {
-  font-size: 11px;
-  color: var(--accent);
-  margin-top: 6px;
-}
-
-/* Repeated cluster */
-.patterns-cluster-card {
-  margin: 0 20px;
-  background: var(--card);
-  border-radius: 14px;
-  padding: 14px 16px;
-  border: 1px solid var(--border-subtle);
-  margin-bottom: 8px;
-}
-
-.patterns-cluster-note {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  font-style: italic;
-  margin-bottom: 8px;
-}
-
-.patterns-cluster-thought {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  padding: 6px 0;
-  border-top: 1px solid var(--border-subtle);
-}
-
-.patterns-cluster-thought:first-of-type { border-top: none; padding-top: 0; }
 
 /* Empty state */
 .patterns-empty {
@@ -3148,28 +3186,28 @@ body {
   <div class="tutorial-body">
 
     <div class="tutorial-section">
-      <div class="tutorial-section-heading">Écrin</div>
-      <div class="tutorial-section-body">For the thoughts that stay with you. The ones that keep coming back.</div>
-    </div>
-
-    <div class="tutorial-section">
       <div class="tutorial-section-heading">Capture</div>
       <div class="tutorial-section-body">Write what surfaces. No need to filter or explain. Even a word is enough.</div>
     </div>
 
     <div class="tutorial-section">
-      <div class="tutorial-section-heading">Organize</div>
-      <div class="tutorial-section-body">Thoughts are gently grouped into themes. The app suggests. You decide what fits.</div>
+      <div class="tutorial-section-heading">Themes</div>
+      <div class="tutorial-section-body">Thoughts are grouped into themes. The app suggests a category — you decide what fits. You can rename themes and change their emoji to make them yours.</div>
+    </div>
+
+    <div class="tutorial-section">
+      <div class="tutorial-section-heading">Look closer</div>
+      <div class="tutorial-section-body">Tap any thought to go deeper. The app reflects what the pattern may be about, how it tends to show up in behavior, and offers space to mark when something has shifted.</div>
     </div>
 
     <div class="tutorial-section">
       <div class="tutorial-section-heading">Patterns</div>
-      <div class="tutorial-section-body">What repeats begins to reveal itself. Patterns shows what your mind keeps returning to.</div>
+      <div class="tutorial-section-body">What repeats begins to reveal itself. Over time, the Patterns tab shows which themes keep surfacing and what tends to show up together.</div>
     </div>
 
     <div class="tutorial-section">
-      <div class="tutorial-section-heading">Reframe</div>
-      <div class="tutorial-section-body">When something shifts, you can mark it. Nothing gets deleted. Progress is quiet here.</div>
+      <div class="tutorial-section-heading">A few more things</div>
+      <div class="tutorial-section-body">Long press any theme card to pin it, rename it, or change its emoji. Use search to find a specific thought. Nothing gets deleted when you mark something as worked through — it just moves quietly out of the active view.</div>
     </div>
 
     <div class="tutorial-closing">
@@ -3252,6 +3290,10 @@ body {
     <div class="patterns-header">
       <div class="patterns-title">Patterns</div>
       <div class="patterns-subtitle">what your mind keeps coming back to</div>
+      <div class="patterns-toggle">
+        <button class="patterns-toggle-btn active" id="ptoggle-all" onclick="setPatternsWindow('all')">all time</button>
+        <button class="patterns-toggle-btn" id="ptoggle-2w" onclick="setPatternsWindow('2w')">last 2 weeks</button>
+      </div>
     </div>
     <div id="patterns-content">
       <!-- rendered by JS -->
@@ -3557,45 +3599,54 @@ body {
       </div>
     </div>
 
-    <!-- 2. Insight — AI generated -->
+    <!-- 2. Pattern — AI generated -->
     <div class="reveal-section" id="reveal-insight">
-      <div class="reveal-section-label">what this may be about</div>
+      <div class="reveal-section-label">what's underneath</div>
       <div class="reveal-insight-body" id="reveal-insight-body"></div>
     </div>
 
-    <!-- 3. Pattern loop -->
-    <div class="reveal-section" id="reveal-pattern" style="display:none">
-      <div class="reveal-section-label">the pattern</div>
-      <div class="reveal-pattern-body" id="reveal-pattern-body"></div>
-    </div>
-
-    <!-- 4. Likely behaviors — AI generated -->
+    <!-- 3. Likely behaviors — AI generated -->
     <div class="reveal-section" id="reveal-behaviors" style="display:none">
       <div class="reveal-section-label">likely behaviors</div>
       <div class="reveal-behaviors-body" id="reveal-behaviors-body"></div>
     </div>
 
-    <!-- 5. Reframe action -->
-    <button class="btn-reframe not-reframed" id="btn-reframe" onclick="toggleReframe()" style="display:none">
-      <span id="reframe-btn-label" class="reframe-label-text">mark as worked through</span>
-    </button>
-
-    <!-- Collapsed: move to different theme -->
-    <div class="reveal-move-section" id="reveal-move-section">
-      <button class="reveal-move-toggle" onclick="toggleMoveSection()">
-        <span id="reveal-move-label">move to a different theme</span>
-        <span id="reveal-move-chevron">▾</span>
-      </button>
-      <div class="reveal-move-list" id="reveal-move-list" style="display:none">
-        <div class="category-list" id="detail-category-list"></div>
-      </div>
+    <!-- 4. What this opens — AI generated positive behaviors -->
+    <div class="reveal-section" id="reveal-openings" style="display:none">
+      <div class="reveal-section-label">what this opens</div>
+      <div class="reveal-behaviors-body" id="reveal-openings-body"></div>
     </div>
 
-    <!-- Delete -->
-    <button class="btn-delete" id="btn-delete" onclick="deleteEntry()">
-      <span class="btn-delete-icon" id="btn-delete-icon">○</span>
-      <span id="delete-btn-label">Delete this thought</span>
-    </button>
+    <!-- companion line -->
+    <div class="reveal-companion" id="reveal-companion" style="display:none">
+      this thought is ready to be taken further
+    </div>
+
+    <!-- Bottom actions — centered group -->
+    <div class="reveal-actions">
+
+      <button class="btn-reframe not-reframed" id="btn-reframe" onclick="toggleReframe()" style="display:none">
+        <span id="reframe-btn-label" class="reframe-label-text">mark as worked through</span>
+      </button>
+
+      <!-- Collapsed: move to different theme -->
+      <div class="reveal-move-section" id="reveal-move-section">
+        <button class="reveal-move-toggle" onclick="toggleMoveSection()">
+          <span id="reveal-move-label">move to a different theme</span>
+          <span id="reveal-move-chevron">▾</span>
+        </button>
+        <div class="reveal-move-list" id="reveal-move-list" style="display:none">
+          <div class="category-list" id="detail-category-list"></div>
+        </div>
+      </div>
+
+      <!-- Delete -->
+      <button class="btn-delete" id="btn-delete" onclick="deleteEntry()">
+        <span class="btn-delete-icon" id="btn-delete-icon">○</span>
+        <span id="delete-btn-label">Delete this thought</span>
+      </button>
+
+    </div>
 
   </div>
 </div>
@@ -4478,12 +4529,13 @@ function renderEntryCard(e, returnView) {
   return `
   <div class="entry-card ${e.reframed ? 'reframed' : ''} ${selectClass} ${selectedClass}"
        onclick="${clickHandler}">
+    ${e.id && e.id.startsWith('seed_') ? `<div class="demo-banner">example thought</div>` : ''}
     ${selectState.active ? `<div class="select-circle">${isSelected ? '✓' : ''}</div>` : ''}
     ${displayText}
     <div class="entry-tags">
       ${e.needsSorting ? `<span class="tag needs-sorting-tag">needs sorting</span>` : ''}
       ${e.reframed ? `<span class="reframed-mark">worked through</span>` : ''}
-      ${hasReflection ? `<span class="reflection-dot" title="Has reflection"></span>` : ''}
+      ${hasReflection && !(e.id && e.id.startsWith('seed_')) ? `<span class="reflection-dot" title="Has reflection"></span>` : ''}
       ${!e.reframed && !selectState.active ? `<span class="entry-cue">look closer ›</span>` : ''}
     </div>
   </div>`;
@@ -4802,7 +4854,7 @@ function captureThought() {
   saveEntries(entries);
 
   closeCapture();
-  openSortScreen(entry);
+  setTimeout(() => openSortScreen(entry), 300);
 }
 
 function splitBulk() {
@@ -5511,8 +5563,9 @@ function openDetail(entryId, returnView) {
   renderDetailCategoryList();
 
   // Reset reveal sections
-  document.getElementById('reveal-pattern').style.display = 'none';
   document.getElementById('reveal-behaviors').style.display = 'none';
+  document.getElementById('reveal-openings').style.display = 'none';
+  document.getElementById('reveal-companion').style.display = 'none';
   document.getElementById('btn-reframe').style.display = 'none';
   document.getElementById('reveal-move-list').style.display = 'none';
   document.getElementById('reveal-move-chevron').textContent = '▾';
@@ -5539,19 +5592,11 @@ async function generateRevealInsight(entry) {
   const PROXY_URL = 'https://cindivinity--68cc08ce385011f181cb42b51c65c3df.web.val.run';
   const CACHE_PREFIX = 'ecrin_insight_v1_';
 
-  function renderRevealFlow(insightText, behaviorsHtml) {
+  function renderRevealFlow(insightText, behaviorsHtml, openingsHtml) {
     const insightBody = document.getElementById('reveal-insight-body');
     if (insightBody) {
       insightBody.innerHTML = `<div class="reveal-insight-text">${escHtml(insightText)}</div>`;
     }
-    setTimeout(() => {
-      const patternEl   = document.getElementById('reveal-pattern');
-      const patternBody = document.getElementById('reveal-pattern-body');
-      if (patternEl && patternBody) {
-        patternBody.textContent = buildPatternLoop(entry);
-        patternEl.style.display = 'block';
-      }
-    }, 200);
     setTimeout(() => {
       const behavEl  = document.getElementById('reveal-behaviors');
       const behavBody = document.getElementById('reveal-behaviors-body');
@@ -5559,38 +5604,67 @@ async function generateRevealInsight(entry) {
         behavBody.innerHTML = behaviorsHtml;
         behavEl.style.display = 'block';
       }
-    }, 400);
+    }, 300);
+    setTimeout(() => {
+      const openEl  = document.getElementById('reveal-openings');
+      const openBody = document.getElementById('reveal-openings-body');
+      if (openEl && openBody && openingsHtml) {
+        openBody.innerHTML = openingsHtml;
+        openEl.style.display = 'block';
+      }
+      const companion = document.getElementById('reveal-companion');
+      if (companion) companion.style.display = 'block';
+    }, 500);
     setTimeout(() => {
       const reframeBtn = document.getElementById('btn-reframe');
       if (reframeBtn) reframeBtn.style.display = 'flex';
-    }, 600);
+    }, 700);
+  }
+
+  function cleanLine(line) {
+    // Remove leading dashes, bullets, em dashes
+    line = line.replace(/^[\-–—•*]\s*/, '').trim();
+    // Sentence case — lowercase everything, uppercase first char
+    if (!line) return '';
+    return line.charAt(0).toUpperCase() + line.slice(1).toLowerCase()
+      // Re-uppercase after sentence-ending punctuation (. ! ?)
+      .replace(/([.!?]\s+)([a-z])/g, (m, p1, p2) => p1 + p2.toUpperCase());
   }
 
   function parseSections(raw) {
-    const insightMatch  = raw.match(/\[INSIGHT\]([\s\S]*?)(?=\[BEHAVIORS\]|$)/i);
-    const behaviorsMatch = raw.match(/\[BEHAVIORS\]([\s\S]*?)$/i);
+    const insightMatch   = raw.match(/\[INSIGHT\]([\s\S]*?)(?=\[BEHAVIORS\]|\[OPENINGS\]|$)/i);
+    const behaviorsMatch = raw.match(/\[BEHAVIORS\]([\s\S]*?)(?=\[OPENINGS\]|$)/i);
+    const openingsMatch  = raw.match(/\[OPENINGS\]([\s\S]*?)$/i);
 
     const insight = insightMatch
-      ? insightMatch[1].trim().split('\n').filter(l => l.trim()).slice(0, 3).join('\n')
+      ? insightMatch[1].trim().split('\n')
+          .map(l => cleanLine(l))
+          .filter(l => l.length > 0)
+          .slice(0, 3)
+          .join('\n')
       : '';
 
-    let behaviorsHtml = '';
-    if (behaviorsMatch) {
-      const lines = behaviorsMatch[1].trim().split('\n')
-        .map(l => l.replace(/^[-•*]\s*/, '').trim())
+    function parseList(match) {
+      if (!match) return '';
+      const lines = match[1].trim().split('\n')
+        .map(l => cleanLine(l))
         .filter(l => l.length > 0)
         .slice(0, 4);
-      behaviorsHtml = `<ul>${lines.map(l => `<li>${escHtml(l)}</li>`).join('')}</ul>`;
+      return `<ul>${lines.map(l => `<li>${escHtml(l)}</li>`).join('')}</ul>`;
     }
 
-    return { insight, behaviorsHtml };
+    return {
+      insight,
+      behaviorsHtml: parseList(behaviorsMatch),
+      openingsHtml:  parseList(openingsMatch)
+    };
   }
 
   function useFallback() {
     const fallback = CAT_BEHAVIOR[entry.category] || 'a recurring pattern worth sitting with';
     const fbItems = CAT_BEHAVIORS_FALLBACK[entry.category] || [];
-    const fbHtml = fbItems.length ? '<ul>' + fbItems.map(l => '<li>' + escHtml(l) + '</li>').join('') + '</ul>' : '';
-    renderRevealFlow(fallback, fbHtml);
+    const fbHtml = fbItems.length ? '<ul>' + fbItems.map(l => `<li>${escHtml(cleanLine(l))}</li>`).join('') + '</ul>' : '';
+    renderRevealFlow(cleanLine(fallback), fbHtml, '');
   }
 
   // Check cache first
@@ -5599,7 +5673,7 @@ async function generateRevealInsight(entry) {
     const cached = localStorage.getItem(cacheKey);
     if (cached) {
       const parsed = JSON.parse(cached);
-      renderRevealFlow(parsed.insight, parsed.behaviorsHtml);
+      renderRevealFlow(parsed.insight, parsed.behaviorsHtml, parsed.openingsHtml || '');
       return;
     }
   } catch(e) {}
@@ -5616,13 +5690,23 @@ async function generateRevealInsight(entry) {
   }
 
   try {
+    // Gather other thoughts from same category for context
+    const allEntries = loadEntries();
+    const contextThoughts = allEntries
+      .filter(e => e.category === entry.category && e.id !== entry.id && !e.id.startsWith('seed_'))
+      .sort((a, b) => b.updatedAt - a.updatedAt)
+      .slice(0, 4)
+      .map(e => e.text);
+
     const response = await fetch(PROXY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        type: 'insight',
         text: entry.text,
         category: entry.category,
-        depth: entry.depth || 'Repeating Pattern'
+        depth: entry.depth || 'Repeating Pattern',
+        context: contextThoughts
       })
     });
 
@@ -5632,54 +5716,18 @@ async function generateRevealInsight(entry) {
     const raw = data.result?.trim() || '';
     if (!raw) throw new Error('empty');
 
-    const { insight, behaviorsHtml } = parseSections(raw);
+    const { insight, behaviorsHtml, openingsHtml } = parseSections(raw);
     if (!insight) throw new Error('parse failed');
 
     try {
-      localStorage.setItem(cacheKey, JSON.stringify({ insight, behaviorsHtml }));
+      localStorage.setItem(cacheKey, JSON.stringify({ insight, behaviorsHtml, openingsHtml }));
     } catch(e) {}
 
-    renderRevealFlow(insight, behaviorsHtml);
+    renderRevealFlow(insight, behaviorsHtml, openingsHtml);
 
   } catch (err) {
     useFallback();
   }
-}
-
-function buildPatternLoop(entry) {
-  // Use category-based soft pattern language
-  const CAT_TRIGGERS = {
-    'Love':              'when closeness begins to feel real',
-    'Career':            'when effort feels invisible or uncertain',
-    'Self-Worth':        'when something asks you to measure up',
-    'Money':             'when resources feel uncertain or threatened',
-    'Family':            'when old dynamics resurface',
-    'Friendships':       'when connection feels uneven',
-    'Body & Health':     'when the body asks for attention',
-    'Creativity':        'when expression feels blocked or judged',
-    'Spirituality':      'when meaning feels distant',
-    'Control/Uncertainty': 'when the path forward becomes unclear',
-    'Other':             'when something unformed surfaces'
-  };
-
-  const CAT_FEELINGS = {
-    'Love':              'something tightens\nthe urge to pull back or hold on rises',
-    'Career':            'doubt creeps in quietly\nthe inner critic finds its opening',
-    'Self-Worth':        'the sense of not-enough arrives\ncomparison or withdrawal follows',
-    'Money':             'scarcity thinking activates\ncontrol or avoidance sets in',
-    'Family':            'old patterns of relating return\nemotional distance or over-giving',
-    'Friendships':       'the question of belonging surfaces\nwithdrawal or overreach',
-    'Body & Health':     'disconnection or urgency arrives\nneglect or hyper-focus follows',
-    'Creativity':        'the inner critic speaks first\nparalysis or self-doubt rises',
-    'Spirituality':      'searching begins\nor a quiet numbness settles',
-    'Control/Uncertainty': 'anxiety moves in\nthe need to fix or avoid intensifies',
-    'Other':             'something stirs\nuncertainty or restlessness follows'
-  };
-
-  const trigger = CAT_TRIGGERS[entry.category] || 'when something familiar arrives';
-  const feeling = CAT_FEELINGS[entry.category] || 'something shifts inside\na familiar response follows';
-
-  return `${trigger}\n${feeling}`;
 }
 
 function toggleMoveSection() {
@@ -6014,6 +6062,8 @@ function clearInsightCache() {
   Object.keys(localStorage)
     .filter(k => k.startsWith(prefix))
     .forEach(k => localStorage.removeItem(k));
+  localStorage.removeItem(PATTERNS_CACHE_ALL);
+  localStorage.removeItem(PATTERNS_CACHE_2W);
 }
 
 function resetClearDataBtn() {
@@ -6064,161 +6114,174 @@ const CAT_BEHAVIORS_FALLBACK = {
   'Other':               ['sitting with the discomfort of not knowing','returning to this thought without fully naming it','noticing it without yet knowing what it means']
 };
 
-function renderPatterns() {
-  const entries = loadEntries();
-  const el = document.getElementById('patterns-content');
+const PATTERNS_CACHE_ALL = 'ecrin_patterns_v1_all';
+const PATTERNS_CACHE_2W  = 'ecrin_patterns_v1_2w';
 
-  if (entries.length < 2) {
+let patternsWindow = 'all'; // 'all' or '2w'
+
+function setPatternsWindow(w) {
+  patternsWindow = w;
+  document.getElementById('ptoggle-all').classList.toggle('active', w === 'all');
+  document.getElementById('ptoggle-2w').classList.toggle('active', w === '2w');
+  renderPatterns();
+}
+
+function getPatternsHash(entries, window) {
+  const active = entries.filter(e => !e.reframed);
+  return window + '_' + active.length + '_' + (active[0]?.updatedAt || 0);
+}
+
+async function renderPatterns() {
+  const el = document.getElementById('patterns-content');
+  if (!el) return;
+
+  const allEntries = loadEntries();
+  const now = Date.now();
+  const twoWeeksAgo = now - 14 * 24 * 60 * 60 * 1000;
+
+  const entries = patternsWindow === '2w'
+    ? allEntries.filter(e => e.createdAt >= twoWeeksAgo)
+    : allEntries;
+
+  // Empty state
+  if (allEntries.length < 2) {
     el.innerHTML = `<div class="patterns-empty">Your patterns will appear here as you keep noticing.<br>Start with one thought.</div>`;
     return;
   }
 
-  const now = Date.now();
-  const twoWeeksAgo = now - 14 * 24 * 60 * 60 * 1000;
-  const weekAgo     = now - 7  * 24 * 60 * 60 * 1000;
-  const weekEntries = entries.filter(e => e.createdAt >= weekAgo);
+  // 2-week window with too few entries
+  if (patternsWindow === '2w' && entries.filter(e => !e.reframed).length < 3) {
+    el.innerHTML = `
+      <div class="patterns-paragraph-card">
+        <div class="patterns-paragraph-label">what this suggests</div>
+        <div class="patterns-paragraph-text" style="font-family:'DM Sans',sans-serif;font-size:14px;font-style:italic;color:var(--text-tertiary);">
+          Not enough captured in the last two weeks. Switch to all time to see the full picture.
+        </div>
+      </div>
+      <div id="patterns-themes-wrap"></div>`;
+    renderPatternsThemes(allEntries, document.getElementById('patterns-themes-wrap'), false);
+    return;
+  }
 
-  // Build category data
+  // Show paragraph card with loading state immediately
+  el.innerHTML = `
+    <div class="patterns-paragraph-card" id="patterns-paragraph-card">
+      <div class="patterns-paragraph-label">what this suggests</div>
+      <div class="patterns-paragraph-loading" id="patterns-para-loading">
+        <div class="patterns-ai-dot"></div>
+        <div class="patterns-ai-dot"></div>
+        <div class="patterns-ai-dot"></div>
+      </div>
+    </div>
+    <div id="patterns-themes-wrap"></div>`;
+
+  // Render themes immediately — no waiting for AI
+  renderPatternsThemes(entries, document.getElementById('patterns-themes-wrap'), false);
+
+  // Then fill paragraph async
+  await fillPatternsParagraph(entries);
+}
+
+async function fillPatternsParagraph(entries) {
+  const PROXY_URL = 'https://cindivinity--68cc08ce385011f181cb42b51c65c3df.web.val.run';
+  const cacheKey = patternsWindow === '2w' ? PATTERNS_CACHE_2W : PATTERNS_CACHE_ALL;
+  const hash = getPatternsHash(entries, patternsWindow);
+
+  // Check cache
+  try {
+    const cached = JSON.parse(localStorage.getItem(cacheKey) || '{}');
+    if (cached.hash === hash && cached.text) {
+      showPatternsParagraph(cached.text);
+      return;
+    }
+  } catch(e) {}
+
+  // Build payload
+  const active = entries.filter(e => !e.reframed);
+  const catCount = {};
+  active.forEach(e => { catCount[e.category] = (catCount[e.category] || 0) + 1; });
+  const topCats = Object.entries(catCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([c]) => c);
+
+  const thoughts = active
+    .filter(e => topCats.includes(e.category))
+    .sort((a, b) => b.createdAt - a.createdAt)
+    .slice(0, 10)
+    .map(e => e.text);
+
+  const windowLabel = patternsWindow === '2w' ? 'the last two weeks' : 'all time';
+
+  try {
+    const res = await fetch(PROXY_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'patterns',
+        categories: topCats,
+        thoughts,
+        window: windowLabel
+      })
+    });
+
+    if (!res.ok) throw new Error('proxy error');
+    const data = await res.json();
+    const text = data.result?.trim() || '';
+    if (!text || text.length < 60) throw new Error('low quality');
+
+    try { localStorage.setItem(cacheKey, JSON.stringify({ hash, text })); } catch(e) {}
+    showPatternsParagraph(text);
+
+  } catch(err) {
+    // Fallback — deterministic summary
+    const topCat = topCats[0] || 'your thoughts';
+    showPatternsParagraph(`${topCat} has been holding the most attention lately. The thoughts that keep returning there haven't fully resolved yet.`);
+  }
+}
+
+function showPatternsParagraph(text) {
+  const card = document.getElementById('patterns-paragraph-card');
+  if (!card) return;
+  card.innerHTML = `
+    <div class="patterns-paragraph-label">what this suggests</div>
+    <div class="patterns-paragraph-text">${escHtml(text)}</div>`;
+}
+
+function renderPatternsThemes(entries, container, dimmed) {
+  if (!container) return;
+
   const catMap = {};
   entries.forEach(e => {
-    if (!catMap[e.category]) {
-      catMap[e.category] = { entries: [], unresolved: 0, reframed: 0, latest: 0 };
-    }
-    catMap[e.category].entries.push(e);
-    if (!e.reframed) catMap[e.category].unresolved++;
-    else catMap[e.category].reframed++;
-    if (e.updatedAt > catMap[e.category].latest) catMap[e.category].latest = e.updatedAt;
+    const cat = e.category === 'Body/Health' ? 'Body & Health' : e.category;
+    if (!catMap[cat]) catMap[cat] = { unresolved: 0, total: 0 };
+    catMap[cat].total++;
+    if (!e.reframed) catMap[cat].unresolved++;
   });
 
-  const sortedCats = Object.entries(catMap)
-    .sort((a, b) => b[1].unresolved - a[1].unresolved || b[1].latest - a[1].latest);
+  const sorted = Object.entries(catMap)
+    .filter(([, d]) => d.unresolved > 0)
+    .sort((a, b) => b[1].unresolved - a[1].unresolved);
 
-  const mostActiveCat     = sortedCats[0][0];
-  const mostActiveCatData = sortedCats[0][1];
+  if (sorted.length === 0) { container.innerHTML = ''; return; }
 
-  // Week activity
-  const weekCatCounts = {};
-  weekEntries.forEach(e => { weekCatCounts[e.category] = (weekCatCounts[e.category] || 0) + 1; });
-  const weekTopEntry = Object.entries(weekCatCounts).sort((a,b) => b[1]-a[1])[0];
+  const visible = sorted.slice(0, 3);
+  const overflow = sorted.length - 3;
 
-  // Cross-theme linkage — categories that co-occur within the same 14-day window
-  function buildLinkages() {
-    const catNames = Object.keys(catMap).filter(c => catMap[c].entries.length >= 2);
-    if (catNames.length < 2) return [];
-
-    const linkages = [];
-    for (let i = 0; i < catNames.length; i++) {
-      for (let j = i + 1; j < catNames.length; j++) {
-        const a = catNames[i];
-        const b = catNames[j];
-        const aDates = catMap[a].entries.map(e => e.createdAt);
-        const bDates = catMap[b].entries.map(e => e.createdAt);
-        // Check if any entry from a and b fall within 14 days of each other
-        const linked = aDates.some(da =>
-          bDates.some(db => Math.abs(da - db) < (14 * 24 * 60 * 60 * 1000))
-        );
-        if (linked) linkages.push([a, b]);
-      }
-    }
-    return linkages.slice(0, 3);
-  }
-
-  const linkages = buildLinkages();
-
-  // Grounded summary — behavior-based, references real data
-  let summaryText = '';
-  if (weekTopEntry && weekTopEntry[1] >= 2) {
-    const cat = weekTopEntry[0].toLowerCase();
-    summaryText = `You've been thinking a lot about ${cat} this week. Most of it is unresolved.`;
-  } else if (mostActiveCatData.unresolved >= 3) {
-    const cat = mostActiveCat.toLowerCase();
-    summaryText = `${mostActiveCat} keeps coming back. You have ${mostActiveCatData.unresolved} unresolved thoughts there.`;
-  } else if (entries.filter(e => e.reframed).length >= 2) {
-    summaryText = `You've worked through ${entries.filter(e => e.reframed).length} thoughts. The ones that remain may be worth a closer look.`;
-  } else {
-    summaryText = `You have ${entries.filter(e => !e.reframed).length} unresolved thoughts across ${Object.keys(catMap).length} theme${Object.keys(catMap).length === 1 ? '' : 's'}.`;
-  }
-
-  const stillPresent = sortedCats.filter(([, d]) => d.unresolved > 0);
-  const softening    = sortedCats.filter(([, d]) => d.unresolved === 0 && d.reframed > 0);
-
-  let html = '';
-
-  // Summary card
-  html += `
-    <div class="patterns-summary-card">
-      <div class="patterns-summary-text">${escHtml(summaryText)}</div>
+  const label = `<div class="patterns-section-label" style="margin-top:0;">where attention is still held</div>`;
+  const cards = visible.map(([name]) => {
+    const accent = catAccent(name);
+    return `
+    <div class="patterns-attention-card" onclick="showCategory('${escHtml(name)}')" style="--pat-accent:${accent}">
+      <div class="patterns-attention-name">${catEmoji(name)} ${escHtml(catDisplayName(name))}</div>
     </div>`;
+  }).join('');
 
-  // What keeps returning — still present themes with behavioral summaries
-  if (stillPresent.length > 0) {
-    html += `<div class="patterns-section-label">still unresolved</div>`;
-    html += `<div class="patterns-group">`;
-    html += stillPresent.map(([name, data]) => {
-      const behavior = CAT_BEHAVIOR[name] || '';
-      const isActive = weekCatCounts[name] && weekCatCounts[name] >= 2;
-      return `
-        <div class="patterns-theme-card" onclick="showCategory('${escHtml(name)}')">
-          <div class="patterns-theme-top">
-            <div class="patterns-theme-name">${catEmoji(name)} ${escHtml(name)}</div>
-          </div>
-          ${behavior ? `<div class="patterns-theme-preview">${escHtml(behavior)}</div>` : ''}
-          ${isActive ? `<div class="patterns-theme-status">active this week</div>` : ''}
-        </div>`;
-    }).join('');
-    html += `</div>`;
-  }
+  const overflowLine = overflow > 0
+    ? `<div class="patterns-overflow">and ${overflow} other${overflow === 1 ? '' : 's'}</div>`
+    : '';
 
-  // What shows up together — cross-theme linkages
-  if (linkages.length > 0) {
-    const LINKAGE_COPY = {
-      'Career|Self-Worth':          'when work feels uncertain, your sense of worth tends to follow',
-      'Self-Worth|Career':          'when work feels uncertain, your sense of worth tends to follow',
-      'Love|Self-Worth':            'when connection deepens, questions of worthiness often surface',
-      'Self-Worth|Love':            'when connection deepens, questions of worthiness often surface',
-      'Career|Control/Uncertainty': 'when direction is unclear, the need to control other things increases',
-      'Control/Uncertainty|Career': 'when direction is unclear, the need to control other things increases',
-      'Love|Control/Uncertainty':   'when closeness grows, uncertainty about the outcome tends to rise',
-      'Control/Uncertainty|Love':   'when closeness grows, uncertainty about the outcome tends to rise',
-      'Family|Self-Worth':          'old family patterns often show up as questions about your own value',
-      'Self-Worth|Family':          'old family patterns often show up as questions about your own value',
-      'Career|Money':               'financial worry and direction tend to amplify each other',
-      'Money|Career':               'financial worry and direction tend to amplify each other',
-      'Body & Health|Control/Uncertainty': 'when things feel out of control, the body often becomes a focus',
-      'Control/Uncertainty|Body & Health': 'when things feel out of control, the body often becomes a focus',
-      'Creativity|Self-Worth':      'creative blocks often carry a deeper question about whether you are enough',
-      'Self-Worth|Creativity':      'creative blocks often carry a deeper question about whether you are enough',
-    };
-
-    html += `<div class="patterns-section-label">what shows up together</div>`;
-    html += `<div class="patterns-group">`;
-    html += linkages.map(([a, b]) => {
-      const key = `${a}|${b}`;
-      const copy = LINKAGE_COPY[key] || `when ${a.toLowerCase()} is active, ${b.toLowerCase()} tends to follow`;
-      return `
-        <div class="patterns-cluster-card">
-          <div class="patterns-cluster-note">${escHtml(copy)}</div>
-        </div>`;
-    }).join('');
-    html += `</div>`;
-  }
-
-  // Becoming clearer — worked through themes
-  if (softening.length > 0) {
-    html += `<div class="patterns-section-label">becoming clearer</div>`;
-    html += `<div class="patterns-group">`;
-    html += softening.map(([name, data]) => `
-      <div class="patterns-theme-card softened" onclick="showCategory('${escHtml(name)}')">
-        <div class="patterns-theme-top">
-          <div class="patterns-theme-name">${catEmoji(name)} ${escHtml(name)}</div>
-          <div class="patterns-theme-count">✦ ${data.reframed}</div>
-        </div>
-        <div class="patterns-theme-status">worked through</div>
-      </div>`).join('');
-    html += `</div>`;
-  }
-
-  el.innerHTML = html;
+  container.innerHTML = label + `<div class="patterns-attention-group">${cards}</div>` + overflowLine;
 }
 
 /* ═══════════════════════════════════════
