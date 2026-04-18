@@ -7,10 +7,10 @@
 
 <!-- PWA / Home Screen -->
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Écrin">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#1E2D2D">
+<meta name="theme-color" content="#F6FAF9" id="meta-theme-color">
 
 <!-- Home screen icon generated at runtime via canvas -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+CiAgPHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIHJ4PSIxMTUiIGZpbGw9IiMxRTJEMkQiLz4KICA8cGF0aCBkPSJNNjQsMjcyIEMxMTIsMjcyIDEzMCwyMjQgMTcyLDIzOCBDMjE0LDI1MiAyMjIsMjk0IDI2NCwyNzYgQzMwNiwyNTggMzE0LDIxMCAzNTYsMjI2IEMzOTgsMjQyIDQwNiwyODAgNDQ0LDI2MiBDNDcwLDI1MCA0ODQsMjM2IDUwNCwyNDIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Y2RkFGOSIgc3Ryb2tlLXdpZHRoPSIxNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CiAgPGNpcmNsZSBjeD0iNDY4IiBjeT0iMzE4IiByPSIyMiIgZmlsbD0iIzJBOUQ5QiIvPgo8L3N2Zz4=">
@@ -4460,6 +4460,16 @@ function applyTheme(name) {
     body.setAttribute('data-theme', name);
   }
   localStorage.setItem(THEME_KEY, name);
+
+  // Update theme-color meta for status bar
+  const themeColors = {
+    coastal: '#F6FAF9',
+    midnight: '#070B14',
+    coffee: '#F5EFE6',
+    mauve: '#F7F0F2'
+  };
+  const metaTheme = document.getElementById('meta-theme-color');
+  if (metaTheme) metaTheme.setAttribute('content', themeColors[name] || '#F6FAF9');
 
   // Update settings theme buttons if open
   document.querySelectorAll('.settings-theme-btn').forEach(btn => {
