@@ -977,12 +977,8 @@ body {
 .sort-screen {
   display: none;
   position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  inset: 0;
   width: 100%;
-  max-width: 480px;
   background: var(--bg);
   z-index: 300;
   flex-direction: column;
@@ -1511,8 +1507,6 @@ body {
 
 /* reframe label */
 .reframe-label-text { font-style: italic; }
-  gap: 8px;
-}
 
 
 
@@ -1555,8 +1549,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: calc(100% - 40px);
-  margin: 8px auto 0;
+  margin: 8px 20px 0;
 }
 
 .reveal-actions .btn-reframe,
@@ -1840,12 +1833,6 @@ body {
   margin-bottom: 4px;
 }
 
-.patterns-subtitle {
-  font-size: 13px;
-  color: var(--text-tertiary);
-  font-style: italic;
-}
-
 /* insight sentence */
 
 .patterns-ai-dot {
@@ -1962,13 +1949,6 @@ body {
   font-size: 28px;
   color: var(--text-primary);
   letter-spacing: -0.3px;
-  margin-bottom: 4px;
-}
-
-.patterns-subtitle {
-  font-size: 13px;
-  color: var(--text-tertiary);
-  font-style: italic;
   margin-bottom: 20px;
 }
 
@@ -2030,6 +2010,14 @@ body {
   gap: 5px;
   align-items: center;
   padding: 4px 0;
+}
+
+.patterns-attention-context {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  padding: 0 20px 16px;
+  line-height: 1.6;
 }
 
 /* theme attention cards */
@@ -2345,16 +2333,13 @@ body {
 }
 
 .card-action-menu {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 4px 16px var(--shadow-lift);
-  z-index: 50;
+  box-shadow: 0 4px 20px var(--shadow-lift);
+  z-index: 999;
   overflow: hidden;
-  min-width: 140px;
+  min-width: 160px;
   animation: menuFadeIn 0.15s ease both;
 }
 
@@ -3122,12 +3107,12 @@ body {
 }
 
 .about-text {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   line-height: 2.1;
   color: var(--text-secondary);
   font-style: italic;
-  font-weight: 400;
+  font-weight: 300;
   white-space: pre-line;
   margin-bottom: 36px;
   opacity: 0.82;
@@ -3146,22 +3131,25 @@ body {
 }
 
 .about-signature {
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   line-height: 2;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   font-style: italic;
+  font-weight: 300;
   white-space: pre-line;
+  opacity: 0.82;
 }
 
 .about-link {
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   text-decoration: none;
   border-bottom: 1px solid var(--border-subtle);
   transition: color 0.2s, border-color 0.2s;
   font-style: italic;
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'DM Sans', sans-serif;
   font-size: 14px;
+  font-weight: 300;
 }
 
 .about-link:hover, .about-link:active {
@@ -3192,12 +3180,12 @@ body {
 
     <div class="tutorial-section">
       <div class="tutorial-section-heading">Themes</div>
-      <div class="tutorial-section-body">Thoughts are grouped into themes. The app suggests a category — you decide what fits. You can rename themes and change their emoji to make them yours.</div>
+      <div class="tutorial-section-body">Thoughts are grouped into themes. The app suggests a category and you decide what fits. You can rename themes and change their emoji to make them yours.</div>
     </div>
 
     <div class="tutorial-section">
       <div class="tutorial-section-heading">Look closer</div>
-      <div class="tutorial-section-body">Tap any thought to go deeper. The app reflects what the pattern may be about, how it tends to show up in behavior, and offers space to mark when something has shifted.</div>
+      <div class="tutorial-section-body">Tap any thought to go deeper. The app reflects what the pattern may be about, how it tends to show up in behavior, and what it might open up. Take what you find into journaling, therapy, tarot, or whatever practice you use to reframe. When something has genuinely shifted, come back and mark it as worked through.</div>
     </div>
 
     <div class="tutorial-section">
@@ -3207,7 +3195,7 @@ body {
 
     <div class="tutorial-section">
       <div class="tutorial-section-heading">A few more things</div>
-      <div class="tutorial-section-body">Long press any theme card to pin it, rename it, or change its emoji. Use search to find a specific thought. Nothing gets deleted when you mark something as worked through — it just moves quietly out of the active view.</div>
+      <div class="tutorial-section-body">Long press any theme card to pin it, rename it, or change its emoji. Use search to find a specific thought. When you mark something as worked through it moves quietly out of the active view. Nothing gets deleted.</div>
     </div>
 
     <div class="tutorial-closing">
@@ -3289,7 +3277,6 @@ body {
   <div id="view-patterns" class="view">
     <div class="patterns-header">
       <div class="patterns-title">Patterns</div>
-      <div class="patterns-subtitle">what your mind keeps coming back to</div>
       <div class="patterns-toggle">
         <button class="patterns-toggle-btn active" id="ptoggle-all" onclick="setPatternsWindow('all')">all time</button>
         <button class="patterns-toggle-btn" id="ptoggle-2w" onclick="setPatternsWindow('2w')">last 2 weeks</button>
@@ -3695,12 +3682,12 @@ can begin to shift the way you see things.
 
 Écrin was created as a space to hold those thoughts,
 to bring awareness to what is often unseen,
-and to allow it to soften over time.</div>
+and to allow it to soften over time.
 
-    <div class="about-quote">Over time, what once felt automatic may begin to loosen,
-and things can feel a little clearer.
+Over time, what once felt automatic may begin to loosen,
+and things can feel a little clearer.</div>
 
-For a miracle is a shift in perception.
+    <div class="about-quote">For a miracle is a shift in perception.
 A Course in Miracles</div>
 
     <div class="about-signature">With love,
@@ -4163,7 +4150,7 @@ function pinCategory(catName) {
   const pinned = loadPinned();
   if (pinned.includes(catName)) return; // already pinned
   if (pinned.length >= 2) {
-    showToast('Max 2 pinned themes — unpin one first');
+    showToast('Max 2 pinned themes. Unpin one first.');
     return;
   }
   pinned.push(catName);
@@ -4230,7 +4217,7 @@ function showCardActionMenu(catName) {
 
   const items = [];
   items.push({ icon: '✎', label: 'Rename',      action: `renameCategoryPrompt('${escHtml(catName)}')` });
-  items.push({ icon: '○', label: 'Change emoji', action: `changeEmojiPrompt('${escHtml(catName)}')` });
+  items.push({ icon: '○', label: 'Emoji', action: `changeEmojiPrompt('${escHtml(catName)}')` });
   if (canPin)   items.push({ icon: '◎', label: 'Pin to top',   action: `pinCategory('${escHtml(catName)}')` });
   if (isPinned) items.push({ icon: '○', label: 'Unpin',        action: `unpinCategory('${escHtml(catName)}')` });
   if (isPinned && pinnedIdx > 0)
@@ -4253,10 +4240,21 @@ function showCardActionMenu(catName) {
     if (card.getAttribute('data-cat') === catName) targetCard = card;
   });
 
+  // Append to body and position via bounding rect — avoids overflow:hidden clipping
+  document.body.appendChild(menu);
+
   if (targetCard) {
-    targetCard.style.position = 'relative';
-    targetCard.appendChild(menu);
+    const rect = targetCard.getBoundingClientRect();
+    const menuWidth = 160;
+    menu.style.position = 'fixed';
+    menu.style.top = (rect.top + 10) + 'px';
+    menu.style.left = Math.min(rect.right - menuWidth, window.innerWidth - menuWidth - 12) + 'px';
+    menu.style.width = menuWidth + 'px';
+    menu.style.zIndex = '999';
   }
+
+  // Dismiss on scroll
+  window.addEventListener('scroll', dismissCardActionMenu, { once: true, passive: true });
 
   // Auto-dismiss after 4s
   setTimeout(dismissCardActionMenu, 4000);
@@ -4875,7 +4873,7 @@ function splitBulk() {
   closeCapture();
   renderHome();
   switchView('view-home');
-  showToast(`${lines.length} thought${lines.length === 1 ? '' : 's'} saved — tap to review`);
+  showToast(`${lines.length} thought${lines.length === 1 ? '' : 's'} saved. Tap to review.`);
 }
 
 function makeEntryWithAI(text) {
@@ -6268,7 +6266,9 @@ function renderPatternsThemes(entries, container, dimmed) {
   const visible = sorted.slice(0, 3);
   const overflow = sorted.length - 3;
 
-  const label = `<div class="patterns-section-label" style="margin-top:0;">where attention is still held</div>`;
+  const label = `
+    <div class="patterns-section-label" style="margin-top:0;">where attention is still held</div>
+    <div class="patterns-attention-context">These themes tend to hold each other. Working through one often makes the others easier to move.</div>`;
   const cards = visible.map(([name]) => {
     const accent = catAccent(name);
     return `
