@@ -360,20 +360,22 @@ body {
 }
 
 .most-active-label {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 4px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
 }
 
 .most-active-label::before {
   content: '▲';
-  font-size: 8px;
+  font-size: 7px;
 }
 
 .card-top {
@@ -4798,11 +4800,29 @@ function getCategoryData(entries) {
   // Only show categories with entries
   const withEntries = Object.values(map).filter(c => c.entries.length > 0);
 
+  const now = Date.now();
+  const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+  const weekCatCounts = {};
+  entries.filter(e => e.createdAt >= weekAgo)
+    .forEach(e => { weekCatCounts[e.category] = (weekCatCounts[e.category] || 0) + 1; });
+  const mostActiveName = Object.keys(weekCatCounts).length > 0
+    ? Object.entries(weekCatCounts).sort((a,b) => b[1]-a[1])[0][0]
+    : null;
+
   // Split into pinned (in pin order) and unpinned (sorted by recency)
   const pinnedCats   = pinned.map(name => withEntries.find(c => c.name === name)).filter(Boolean);
-  const unpinnedCats = withEntries
+  let unpinnedCats = withEntries
     .filter(c => !pinned.includes(c.name))
     .sort((a, b) => b.lastUpdated - a.lastUpdated);
+
+  // Move most-active to top of unpinned list
+  if (mostActiveName) {
+    const activeIdx = unpinnedCats.findIndex(c => c.name === mostActiveName);
+    if (activeIdx > 0) {
+      const [active] = unpinnedCats.splice(activeIdx, 1);
+      unpinnedCats = [active, ...unpinnedCats];
+    }
+  }
 
   return [...pinnedCats, ...unpinnedCats];
 }
