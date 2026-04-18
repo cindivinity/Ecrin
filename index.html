@@ -4021,7 +4021,7 @@ Cindy Flores, MD
 const STORAGE_KEY = 'ritten_entries_v1';
 const THEME_KEY   = 'ritten_theme_v1';
 const MSG_IDX_KEY = 'ritten_msg_idx_v1';
-const SEEDED_KEY  = 'ritten_seeded_v1';
+const SEEDED_KEY  = 'ritten_seeded_v2';
 const NAME_KEY    = 'ritten_name_v1';
 const PRIVACY_KEY   = 'ecrin_show_previews_v1';
 const VIEW_MODE_KEY = 'ecrin_view_mode_v1'; // 'focus' | 'grid' | 'stream'
@@ -4218,6 +4218,110 @@ const SEED_ENTRIES = [
     needsSorting: false,
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 7,
     updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 1
+  },
+  {
+    id: 'seed_5',
+    text: "Why do I feel guilty spending money on myself even when I can afford it?",
+    category: 'Money',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 4,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 4
+  },
+  {
+    id: 'seed_6',
+    text: "Why do I shrink myself around certain family members even as an adult?",
+    category: 'Family',
+    depth: 'Core Belief',
+    impact: 'Far-Reaching',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 6,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 6
+  },
+  {
+    id: 'seed_7',
+    text: "Why do I pull back from friendships when I start to actually need them?",
+    category: 'Friendships',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 8,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 8
+  },
+  {
+    id: 'seed_8',
+    text: "Why does my sense of meaning disappear the moment life gets routine?",
+    category: 'Spirituality',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 9,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 9
+  },
+  {
+    id: 'seed_9',
+    text: "Why do I notice every flaw in my body on the days I feel worst about myself?",
+    category: 'Body & Health',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 10,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 10
+  },
+  {
+    id: 'seed_10',
+    text: "Why do I spiral the moment something feels uncertain, even when it's small?",
+    category: 'Control/Uncertainty',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 11,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 11
+  },
+  {
+    id: 'seed_11',
+    text: "Why do I abandon creative ideas right before they start to feel real?",
+    category: 'Creativity',
+    depth: 'Repeating Pattern',
+    impact: 'High',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 12,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 12
+  },
+  {
+    id: 'seed_12',
+    text: "Why do I feel most like myself in the in-between moments, not the big ones?",
+    category: 'Other',
+    depth: 'Surface Trigger',
+    impact: 'Medium',
+    status: 'New',
+    reframed: false,
+    reflection: '',
+    needsSorting: false,
+    createdAt: Date.now() - 1000 * 60 * 60 * 24 * 13,
+    updatedAt: Date.now() - 1000 * 60 * 60 * 24 * 13
   }
 ];
 
@@ -4234,7 +4338,9 @@ function saveEntries(entries) {
 
 function initData() {
   if (!localStorage.getItem(SEEDED_KEY)) {
-    saveEntries(SEED_ENTRIES);
+    // Preserve any real (non-seed) entries the user has already added
+    const existing = loadEntries().filter(e => !e.id || !e.id.startsWith('seed_'));
+    saveEntries([...SEED_ENTRIES, ...existing]);
     localStorage.setItem(SEEDED_KEY, '1');
   }
   migrateEntries();
