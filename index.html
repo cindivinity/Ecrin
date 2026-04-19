@@ -175,26 +175,9 @@ body {
 .header-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-bottom: 16px;
 }
-
-.header-search-btn {
-  font-size: 16px;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  padding: 8px;
-  margin: -8px;
-  min-width: 44px;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.15s;
-}
-
-.header-search-btn:active { opacity: 0.4; }
 
 .wordmark {
   font-family: 'DM Serif Display', Georgia, serif;
@@ -2902,6 +2885,19 @@ body {
 
 .clear-examples-btn:active { opacity: 0.35; }
 
+.home-search-entry {
+  text-align: right;
+  padding: 24px 24px 48px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.15s;
+}
+.home-search-entry:active { opacity: 0.4; }
+
 /* search overlay */
 .search-overlay {
   display: none;
@@ -3507,7 +3503,6 @@ and it's hard to make sense of them?</div>
     <div class="header">
       <div class="header-top">
         <div class="wordmark">Écrin<span class="wordmark-dot"></span></div>
-        <div class="header-search-btn" onclick="openSearch()">⌕</div>
       </div>
 
       <div class="greeting-block">
@@ -3536,6 +3531,9 @@ and it's hard to make sense of them?</div>
     <div class="categories-list" id="categories-list">
       <!-- rendered by JS -->
     </div>
+
+    <!-- Search entry — bottom right, below all themes -->
+    <div class="home-search-entry" onclick="openSearch()">⌕ search</div>
 
   </div>
 
