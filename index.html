@@ -4855,6 +4855,9 @@ function renderHome() {
   if (clearWrap) clearWrap.style.display = hasSeed ? 'flex' : 'none';
 
   if (catData.length === 0) {
+    // Clear intelligence line when no entries
+    const iEl = document.getElementById('intelligence-line');
+    if (iEl) { iEl.textContent = ''; iEl.classList.remove('visible'); }
     list.innerHTML = `
       <div class="empty-state">
         <div class="empty-state-icon">○</div>
@@ -6145,6 +6148,8 @@ async function generateRevealInsight(entry) {
   function cleanLine(line) {
     // Remove leading dashes, bullets, em dashes
     line = line.replace(/^[\-–—•*]\s*/, '').trim();
+    // Replace mid-sentence em dashes and en dashes with comma or space
+    line = line.replace(/\s*—\s*/g, ', ').replace(/\s*–\s*/g, ', ');
     // Sentence case — lowercase everything, uppercase first char
     if (!line) return '';
     return line.charAt(0).toUpperCase() + line.slice(1).toLowerCase()
